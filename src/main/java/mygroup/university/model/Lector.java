@@ -1,5 +1,7 @@
 package mygroup.university.model;
 
+import java.math.BigInteger;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -7,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "lectors")
@@ -14,10 +17,12 @@ public class Lector {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotNull
+    @Column(unique = true)
     private String name;
     @Enumerated(EnumType.STRING)
-    private Degree professor;
-    private Long salary;
+    private Degree degree;
+    private BigInteger salary;
 
     public Long getId() {
         return id;
@@ -35,19 +40,29 @@ public class Lector {
         this.name = name;
     }
 
-    public Degree getProfessor() {
-        return professor;
+    public Degree getDegree() {
+        return degree;
     }
 
-    public void setProfessor(Degree professor) {
-        this.professor = professor;
+    public void setDegree(Degree degree) {
+        this.degree = degree;
     }
 
-    public Long getSalary() {
+    public BigInteger getSalary() {
         return salary;
     }
 
-    public void setSalary(Long salary) {
+    public void setSalary(BigInteger salary) {
         this.salary = salary;
+    }
+
+    @Override
+    public String toString() {
+        return "Lector{"
+                + "id=" + id
+                + ", name='" + name + '\''
+                + ", degree=" + degree
+                + ", salary=" + salary
+                + '}';
     }
 }
